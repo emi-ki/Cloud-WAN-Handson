@@ -6,7 +6,12 @@ AWS エバンジェリストシリーズ　AWSの基礎を学ぼう　特別編 
 https://awsbasics.connpass.com/event/256839/  
 
 元になる手順は私が会社の技術ブログとして執筆した以下ブログです。  
-https://blog.serverworks.co.jp/cloud-wan-vpc  
+[AWS Cloud WAN を使ってマルチリージョンの VPC 間で疎通確認する手順](https://blog.serverworks.co.jp/cloud-wan-vpc)  
+
+## AWS Cloud WAN 概要
+https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81
+
+##事前準備
 
 事前に用意しておくリソースを、以下の CloudFormationテンプレートで作成します。
 - 東京リージョンで展開
