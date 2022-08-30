@@ -2,11 +2,11 @@
 ## はじめに
 以下のイベントで AWS Cloud WAN の簡易ハンズオンを実施するために本コンテンツを用意しています。
 
-AWS エバンジェリストシリーズ　AWSの基礎を学ぼう　特別編 Cloud WAN
-https://awsbasics.connpass.com/event/256839/
+AWS エバンジェリストシリーズ　AWSの基礎を学ぼう　特別編 Cloud WAN  
+https://awsbasics.connpass.com/event/256839/  
 
-元になる手順は私が会社の技術ブログとして執筆した以下ブログです。
-https://blog.serverworks.co.jp/cloud-wan-vpc
+元になる手順は私が会社の技術ブログとして執筆した以下ブログです。  
+https://blog.serverworks.co.jp/cloud-wan-vpc  
 
 事前に用意しておくリソースを、以下の CloudFormationテンプレートで作成します。
 - 東京リージョンで展開
@@ -20,7 +20,7 @@ https://blog.serverworks.co.jp/cloud-wan-vpc
 
 ## 注意
 - 各リージョンに VPC が 2 つ作成されます
-   - 上記 CloudFormation テンプレートを展開することで、東京リージョンに 2 つ、バージニア北部リージョンに 2 つ VPC が作成されます。
+   - 上記 CloudFormation テンプレートを展開すると、東京リージョンに 2 つ、バージニア北部リージョンに 2 つ VPC が作成されます。
    - 各リージョンに作成できる VPC の数は、上限緩和申請をしていなければデフォルトで 5 つまでです。
    - 既にご自身の AWS アカウントの東京リージョン、バージニア北部リージョンに 4 つ以上 VPC が存在する場合、 CloudFormation スタックの展開でエラーになります。
 - 同名の IAM ロールが存在する
