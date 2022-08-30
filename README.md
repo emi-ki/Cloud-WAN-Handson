@@ -33,6 +33,11 @@ https://awsbasics.connpass.com/event/256839/
 ![image](https://user-images.githubusercontent.com/86865300/187493238-db8b0de4-3750-49c1-b1fd-d4aa952cc50a.png)
 
 ## 注意
+- 本番運用中の AWS アカウントの利用はお控えいただくようお願いいたします。
+   - 既存システムに影響を与える可能性があります。検証用 AWS アカウントや個人用 AWS アカウントの利用をお願いいたします。
+   - AWS アカウントをまたいだリソース作成は行いません。AWS Organizations 配下のメンバーアカウントでも実施いただける想定です。
+- 上記構成図のリソース作成権限 + IAM ロール作成権限がないと、CloudFormation テンプレートの展開に失敗します。
+   - Administrator 権限がある IAM ユーザーもしくは Administrator 権限がある IAM ロールにスイッチして作業されることを推奨いたします。
 - 各リージョンに VPC が 2 つ作成されます
    - 上記 CloudFormation テンプレートを展開すると、東京リージョンに 2 つ、バージニア北部リージョンに 2 つ VPC が作成されます。
    - 各リージョンに作成できる VPC の数は、上限緩和申請をしていなければデフォルトで 5 つまでです。
