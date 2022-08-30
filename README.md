@@ -9,7 +9,7 @@ https://awsbasics.connpass.com/event/256839/
 [AWS Cloud WAN を使ってマルチリージョンの VPC 間で疎通確認する手順](https://blog.serverworks.co.jp/cloud-wan-vpc)  
 
 ## AWS Cloud WAN 概要
-上記ブログの冒頭を見ながら概要を確認します。
+ブログの冒頭を見ながら簡単に概要を確認します。  
 [AWS Cloud WAN 概要](https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81)
 
 ## 最終構成図
@@ -43,4 +43,8 @@ https://awsbasics.connpass.com/event/256839/
    - 各リージョンに作成できる VPC の数は、上限緩和申請をしていなければデフォルトで 5 つまでです。
    - 既にご自身の AWS アカウントの東京リージョン、バージニア北部リージョンに 4 つ以上 VPC が存在する場合、 CloudFormation スタックの展開でエラーになります。
 - 同名の IAM ロールが存在する
-   - ※検証中
+   - ※※※※※※※※検証中※※※※※※※※※※
+   
+## ハンズオン手順
+こちらのブログの「Cloud WAN の設定」から実施します。  
+[Cloud WAN の設定](https://blog.serverworks.co.jp/cloud-wan-vpc#Cloud-WAN-%E3%81%AE%E8%A8%AD%E5%AE%9A)
