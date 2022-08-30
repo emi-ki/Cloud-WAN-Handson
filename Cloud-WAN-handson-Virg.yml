@@ -1,0 +1,316 @@
+######Cloud-WAN-handson-Virg.yml######Version 1.0########2022/07/08#####Emi Kitani######
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Create Environment for Cloud WAN demo Virg"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------#
+Parameters:
+  AvailabilityZone1:
+    Description: Please type Availability Zone 1.
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1a
+ 
+  AvailabilityZone2:
+    Description: Please type Availability Zone 2.
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1b
+
+  SystemName:
+    Description: Please type SystemName.
+    Type: String
+    Default: Virg
+
+  Vpc1CidrBlock:
+    Description: Please type vpc1 CidrBlock.
+    Type: String
+    Default: 172.17.1.0/24 
+  Vpc2CidrBlock:
+    Description: Please type vpc2 CidrBlock.
+    Type: String
+    Default: 172.17.2.0/24 
+
+  Ec2ImageId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+  Ec2InstanceType:
+    Type: String
+    Default: t2.micro
+
+Resources:
+# ------------------------------------------------------------#
+#  VPC
+# ------------------------------------------------------------#
+  Vpc1:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: !Sub ${Vpc1CidrBlock}
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-vpc1
+#        - Key: Environment
+#          Value: Prod
+
+  Vpc2:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: !Sub ${Vpc2CidrBlock}
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-vpc2         
+#        - Key: Environment
+#          Value: Dev
+
+# ------------------------------------------------------------#
+#  Subnet
+# ------------------------------------------------------------#
+  PrivateSubnet1:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref Vpc1
+      AvailabilityZone: !Ref AvailabilityZone1
+      CidrBlock: 172.17.1.0/28
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}1PrivateSubnet
+
+  PrivateSubnet2:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref Vpc2
+      AvailabilityZone: !Ref AvailabilityZone2
+      CidrBlock: 172.17.2.0/28
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}2PrivateSubnet
+
+# ------------------------------------------------------------#
+#  RouteTable
+# ------------------------------------------------------------#
+
+  RTBForPrivateSubnet1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc1
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}1RTBForPrivateSubnet
+  AssocciateRTBForPrivateSubnet1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RTBForPrivateSubnet1
+      SubnetId: !Ref PrivateSubnet1
+
+  RTBForPrivateSubnet2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc2
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}2RTBForPrivateSubnet
+  AssocciateRTBForPrivateSubnet2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RTBForPrivateSubnet2
+      SubnetId: !Ref PrivateSubnet2
+
+# ------------------------------------------------------------#
+#  SecurityGroup
+# ------------------------------------------------------------#
+  SecurityGroupEC21:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}1ec2sg
+      GroupDescription: !Sub ${SystemName}1ec2sg
+      GroupName: !Sub ${SystemName}1ec2sg
+      VpcId: !Ref  Vpc1
+      SecurityGroupIngress:
+        - IpProtocol: icmp  
+          FromPort: -1 # ICMP にポート番号はない
+          ToPort: -1 # ICMP にポート番号はない   
+          CidrIp: 172.16.0.0/12
+#        - IpProtocol: -1  # 全てのプロトコルを許可
+#          CidrIp: !Sub  Vpc2CidrBlock
+
+  SecurityGroupEndpoint1:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SecurityGroupEndpoint1
+      VpcId: !Ref Vpc1
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}1endpointsg
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref Vpc1CidrBlock
+
+
+  SecurityGroupEC22:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}2ec2sg
+      GroupDescription: !Sub ${SystemName}2ec2sg
+      GroupName: !Sub ${SystemName}2ec2sg
+      VpcId: !Ref  Vpc2
+      SecurityGroupIngress:
+        - IpProtocol: icmp  
+          FromPort: -1 # ICMP にポート番号はない
+          ToPort: -1 # ICMP にポート番号はない   
+          CidrIp: 172.16.0.0/12
+
+  SecurityGroupEndpoint2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SecurityGroupEndpoint2
+      VpcId: !Ref Vpc2
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}2endpointsg
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref Vpc2CidrBlock
+
+# ------------------------------------------------------------#
+#  VPC Endpoints
+# ------------------------------------------------------------#
+
+# https://aws.amazon.com/jp/premiumsupport/knowledge-center/ec2-systems-manager-vpc-endpoints/
+
+  EndpointSSM1:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !Ref SecurityGroupEndpoint1
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ssm
+      SubnetIds:
+        - !Ref PrivateSubnet1
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc1
+
+  EndpointSSMMessages1:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !Ref SecurityGroupEndpoint1
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ssmmessages
+      SubnetIds:
+        - !Ref PrivateSubnet1
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc1
+
+  EndpointEC2Messages1:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !Ref SecurityGroupEndpoint1
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ec2messages
+      SubnetIds:
+        - !Ref PrivateSubnet1
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc1
+
+  EndpointSSM2:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !Ref SecurityGroupEndpoint2
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ssm
+      SubnetIds:
+        - !Ref PrivateSubnet2
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc2
+
+  EndpointSSMMessages2:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !Ref SecurityGroupEndpoint2
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ssmmessages
+      SubnetIds:
+        - !Ref PrivateSubnet2
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc2
+
+  EndpointEC2Messages2:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - !Ref SecurityGroupEndpoint2
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ec2messages
+      SubnetIds:
+        - !Ref PrivateSubnet2
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc2
+
+
+# ------------------------------------------------------------#
+#  IAM Role
+# ------------------------------------------------------------#
+  #同じ名前のリソースかぶらないか？
+  SSMIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${SystemName}-20220910-AmazonSSMManagedInstanceCoreRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+
+  SSMInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - Ref: SSMIAMRole
+      InstanceProfileName: !Sub ${SystemName}-SSMInstanceProfile
+
+# ------------------------------------------------------------#
+#  EC2
+# ------------------------------------------------------------#
+  EC201:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone1
+      IamInstanceProfile: !Ref SSMInstanceProfile
+      ImageId: !Ref Ec2ImageId
+      InstanceType: !Ref Ec2InstanceType
+      SecurityGroupIds: 
+       - !Ref SecurityGroupEC21
+      PrivateIpAddress: 172.17.1.10
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}1-ec2
+
+
+
+
+
+
+
