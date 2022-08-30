@@ -9,9 +9,13 @@ https://awsbasics.connpass.com/event/256839/
 [AWS Cloud WAN を使ってマルチリージョンの VPC 間で疎通確認する手順](https://blog.serverworks.co.jp/cloud-wan-vpc)  
 
 ## AWS Cloud WAN 概要
-https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81
+上記ブログの冒頭を見ながら概要を確認します。
+[AWS Cloud WAN 概要](https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81)
 
-##事前準備
+## 最終構成図
+
+
+## 事前準備
 
 事前に用意しておくリソースを、以下の CloudFormationテンプレートで作成します。
 - 東京リージョンで展開
