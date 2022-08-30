@@ -13,6 +13,11 @@ https://awsbasics.connpass.com/event/256839/
 [AWS Cloud WAN 概要](https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81)
 
 ## 最終構成図
+ハンズオン終了時点で以下のような構成になります。
+![image](https://user-images.githubusercontent.com/86865300/187497711-64797d41-1ce3-4c03-81bd-ad1e15e07924.png)
+
+本番環境 Prod セグメントネットワークに所属する VPC 間の疎通確認と、開発環境 Dev セグメントネットワークに所属する VPC 間の疎通確認ができることをゴールとします。
+![image](https://user-images.githubusercontent.com/86865300/187498113-afdfa1c2-a876-4af4-b23c-7e61bd68dbbe.png)
 
 
 ## 事前準備
