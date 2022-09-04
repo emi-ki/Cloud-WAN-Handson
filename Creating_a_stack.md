@@ -1,5 +1,7 @@
 # AWS CloudFormation コンソールでのスタックの作成
 
+https://github.com/emi-ki/Cloud-WAN-Handson で
+
 1. AWS CloudFormation コンソール (https://console.aws.amazon.com/cloudformation) を開きます。
 
 2. 次のオプションのうち 1 つを使用して新しいスタックを作成します。
