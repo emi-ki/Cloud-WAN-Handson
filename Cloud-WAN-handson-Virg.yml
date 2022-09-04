@@ -265,7 +265,7 @@ Resources:
 # ------------------------------------------------------------#
 #  IAM Role
 # ------------------------------------------------------------#
-  #同じ名前のリソースかぶらないか？
+  #IAMSロール名「Virg-20220910-AmazonSSMManagedInstanceCoreRole」
   SSMIAMRole:
     Type: AWS::IAM::Role
     Properties:
@@ -301,14 +301,28 @@ Resources:
       IamInstanceProfile: !Ref SSMInstanceProfile
       ImageId: !Ref Ec2ImageId
       InstanceType: !Ref Ec2InstanceType
+      SubnetId: !Ref PrivateSubnet1
       SecurityGroupIds: 
        - !Ref SecurityGroupEC21
-      PrivateIpAddress: 172.17.1.10
+      PrivateIpAddress: 172.17.1.14
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}1-ec2
 
-
+  EC202:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone2
+      IamInstanceProfile: !Ref SSMInstanceProfile
+      ImageId: !Ref Ec2ImageId
+      InstanceType: !Ref Ec2InstanceType
+      SubnetId: !Ref PrivateSubnet2
+      SecurityGroupIds: 
+       - !Ref SecurityGroupEC22
+      PrivateIpAddress: 172.17.2.14
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}2-ec2
 
 
 
