@@ -3,7 +3,7 @@
 |:--|:--|:--|:--|
 |0||導入 自己紹介など|5分|
 |1||[README.md](https://github.com/emi-ki/Cloud-WAN-Handson/blob/main/README.md) で本日の流れを確認|5分||
-|2||事前準備 CloudFormation スタックの展開|10分||
+|2||事前準備 [CloudFormation スタックの展開](https://github.com/emi-ki/Cloud-WAN-Handson/blob/main/Create_stacks.md)|10分||
 ||2-1|GitHubから CloudFormationテンプレートをダウンロード||
 ||2-2|AWS コンソールログイン～ CloudFormation スタックの展開||
 ||2-3|スタックの展開待ち時間で [AWS Cloud WAN 概要](https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81) を確認||
@@ -13,9 +13,9 @@
 ||3-3|アタッチメントポリシーの設定（待ち時間 約5分）|
 ||3-4|VPC アタッチメント（待ち時間 約10分）|
 ||3-5|コアネットワークのルートテーブル確認（進捗により省略）|
-|4||VPC 内ルートテーブル編集|10分|
-|5||疎通確認|10分|
-|6||コアネットワークのダッシュボードを見る（進捗により省略）|5分|
-|7||お片付け|20分|
+|4||[VPC 内ルートテーブル編集](https://blog.serverworks.co.jp/cloud-wan-vpc#VPC-%E5%86%85%E3%83%AB%E3%83%BC%E3%83%88%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E7%B7%A8%E9%9B%86)|10分|
+|5||[疎通確認](https://blog.serverworks.co.jp/cloud-wan-vpc#%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D)|10分|
+|6||[コアネットワークのダッシュボードを見る](https://blog.serverworks.co.jp/cloud-wan-vpc#%E3%82%B3%E3%82%A2%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%AE%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9C%E3%83%BC%E3%83%89%E3%82%92%E8%A6%8B%E3%82%8B)（進捗により省略）|5分|
+|7||[お片付け](https://blog.serverworks.co.jp/cloud-wan-vpc#%E3%81%8A%E7%89%87%E4%BB%98%E3%81%91)|20分|
 ||7-1|Cloud WAN 削除（待ち時間 約10分）||
-||7-2|CloudFormation スタックの削除||
+||7-2|[CloudFormation スタックの削除](https://github.com/emi-ki/Cloud-WAN-Handson/blob/main/Delete_stacks.md)||
