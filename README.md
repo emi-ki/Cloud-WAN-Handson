@@ -5,6 +5,8 @@
 AWS エバンジェリストシリーズ　AWSの基礎を学ぼう　特別編 Cloud WAN  
 https://awsbasics.connpass.com/event/256839/  
 
+★[手順.md](https://github.com/emi-ki/Cloud-WAN-Handson/blob/main/%E6%89%8B%E9%A0%86.md)の流れで進めていきます。  
+
 元になる手順は私が執筆した以下ブログです。  
 [AWS Cloud WAN を使ってマルチリージョンの VPC 間で疎通確認する手順](https://blog.serverworks.co.jp/cloud-wan-vpc)  
 
