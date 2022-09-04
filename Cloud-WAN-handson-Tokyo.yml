@@ -298,7 +298,6 @@ Resources:
       SubnetId: !Ref PrivateSubnet1
       SecurityGroupIds: 
        - !Ref SecurityGroupEC21
-#      PrivateIpAddress: 172.16.1.14
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}1-ec2
@@ -313,7 +312,6 @@ Resources:
       SubnetId: !Ref PrivateSubnet2
       SecurityGroupIds: 
        - !Ref SecurityGroupEC22
-#      PrivateIpAddress: 172.16.2.14
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}2-ec2
