@@ -1,6 +1,6 @@
-######Cloud-WAN-handson-Virg.yml######Version 1.0########2022/09/04#####Emi Kitani######
+######Cloud-WAN-handson-Tokyo.yml######Version 1.0########2022/09/04#####Emi Kitani######
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Create Environment for Cloud WAN handson Virg"
+Description: "Create Environment for Cloud WAN handson Tokyo"
 
 # ------------------------------------------------------------#
 # Input Parameters
@@ -9,26 +9,26 @@ Parameters:
   AvailabilityZone1:
     Description: Please type Availability Zone 1.
     Type: AWS::EC2::AvailabilityZone::Name
-    Default: us-east-1a
+    Default: ap-northeast-1a
  
   AvailabilityZone2:
     Description: Please type Availability Zone 2.
     Type: AWS::EC2::AvailabilityZone::Name
-    Default: us-east-1b
+    Default: ap-northeast-1c
 
   SystemName:
     Description: Please type SystemName.
     Type: String
-    Default: Virg
+    Default: Tokyo
 
   Vpc1CidrBlock:
     Description: Please type vpc1 CidrBlock.
     Type: String
-    Default: 172.17.1.0/24 
+    Default: 172.16.1.0/24 
   Vpc2CidrBlock:
     Description: Please type vpc2 CidrBlock.
     Type: String
-    Default: 172.17.2.0/24 
+    Default: 172.16.2.0/24 
 
   Ec2ImageId:
     Type: AWS::SSM::Parameter::Value<String>
@@ -70,7 +70,7 @@ Resources:
     Properties:
       VpcId: !Ref Vpc1
       AvailabilityZone: !Ref AvailabilityZone1
-      CidrBlock: 172.17.1.0/28
+      CidrBlock: 172.16.1.0/28
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}1PrivateSubnet
@@ -80,7 +80,7 @@ Resources:
     Properties:
       VpcId: !Ref Vpc2
       AvailabilityZone: !Ref AvailabilityZone2
-      CidrBlock: 172.17.2.0/28
+      CidrBlock: 172.16.2.0/28
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}2PrivateSubnet
@@ -259,7 +259,7 @@ Resources:
 # ------------------------------------------------------------#
 #  IAM Role
 # ------------------------------------------------------------#
-  #IAMロール名「Virg-20220910-AmazonSSMManagedInstanceCoreRole」
+  #IAMSロール名「Tokyo-20220910-AmazonSSMManagedInstanceCoreRole」
   SSMIAMRole:
     Type: AWS::IAM::Role
     Properties:
@@ -298,7 +298,7 @@ Resources:
       SubnetId: !Ref PrivateSubnet1
       SecurityGroupIds: 
        - !Ref SecurityGroupEC21
-      PrivateIpAddress: 172.17.1.14
+#      PrivateIpAddress: 172.16.1.14
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}1-ec2
@@ -313,7 +313,7 @@ Resources:
       SubnetId: !Ref PrivateSubnet2
       SecurityGroupIds: 
        - !Ref SecurityGroupEC22
-      PrivateIpAddress: 172.17.2.14
+#      PrivateIpAddress: 172.16.2.14
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}2-ec2
