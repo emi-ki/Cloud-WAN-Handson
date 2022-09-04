@@ -10,7 +10,8 @@ https://awsbasics.connpass.com/event/256839/
 
 ## AWS Cloud WAN 概要
 ブログの冒頭を見ながら簡単に概要を確認します。  
-[AWS Cloud WAN 概要](https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81)
+[AWS Cloud WAN 概要](https://blog.serverworks.co.jp/cloud-wan-vpc#AWS-Cloud-WAN-%E6%A6%82%E8%A6%81)  
+※事前準備の CloudFormation スタック展開待ち時間に確認します。
 
 ## 最終構成図
 ハンズオン終了時点で以下のような構成になります。
