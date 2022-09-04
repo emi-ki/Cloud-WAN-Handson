@@ -2,7 +2,7 @@
 | | | | |
 |:--|:--|:--|:--|
 |0||導入 自己紹介など|5分|
-|1||README.md で本日の流れを確認|5分||
+|1||[README.md](https://github.com/emi-ki/Cloud-WAN-Handson/blob/main/README.md) で本日の流れを確認|5分||
 |2||事前準備 CloudFormation スタックの展開|10分||
 ||2-1|GitHubから CloudFormationテンプレートをダウンロード||
 ||2-2|AWS コンソールログイン～ CloudFormation スタックの展開||
