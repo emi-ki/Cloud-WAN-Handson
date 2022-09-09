@@ -4,7 +4,7 @@ EC2 インスタンスにセッションマネージャーで接続する際、S
 
 ![image](https://user-images.githubusercontent.com/86865300/189295204-c42819d1-226d-4687-8f53-a5d2b88031cb.png)
 
-[AWS エバンジェリストシリーズ　AWSの基礎を学ぼう の 特別編 Systems Managerその１](https://awsbasics.connpass.com/event/253403/) に参加された方はこのエラーが出る可能性が高いです。
+デフォルトだと KMS encryption は Disabled なのですが、[AWS エバンジェリストシリーズ　AWSの基礎を学ぼう の 特別編 Systems Managerその１](https://awsbasics.connpass.com/event/253403/) に参加された方はこのエラーが出る可能性が高いです。
 
 # 対処法
 AWS コンソールで Systems Manaager コンソールに移動します。  
