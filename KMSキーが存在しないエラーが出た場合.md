@@ -24,3 +24,5 @@ Enable KMS encryption のチェックを外します。
 ![image](https://user-images.githubusercontent.com/86865300/189298470-a402ec94-c4f7-4303-a767-fdf24041512a.png)
 
 再度、セッションマネージャーで EC2 インスタンスに接続してみてください。
+
+（参考：[AWS Systems Manager の Fleet Manager で EC2 インスタンスのパフォーマンスカウンターを見る](https://qiita.com/emiki/items/dd3ea1991d3a618ed028)）
